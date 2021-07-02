@@ -9,7 +9,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('user-login')
     else:
         form = CreateUserForm()
     context = {
