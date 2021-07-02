@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import Product
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from .forms import ProductForm
 
 # Create your views here.
 @login_required()
@@ -13,9 +15,29 @@ def staff(request):
 
 @login_required()
 def product(request):
-    return render(request, "product.html")
+    items = Product.objects.all()
 
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('product')
+    else:
+        form = ProductForm()
 
+    context = {
+        'items': items,
+        'form': form
+    }
+
+    return render(request, "product.html", context)
+
+def product_delete(request, pk):
+    item = Product.objects.get(id=pk)
+    if request.method=='POST':
+        item.delete()
+        return redirect('product')
+    return render(request, "product_delete.html")
 
 @login_required()
 def order(request):
