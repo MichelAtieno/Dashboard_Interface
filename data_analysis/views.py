@@ -15,9 +15,7 @@ def staff(request):
 def product(request):
     return render(request, "product.html")
 
-@login_required()
-def profile(request):
-    return render(request, "profile.html")
+
 
 @login_required()
 def order(request):

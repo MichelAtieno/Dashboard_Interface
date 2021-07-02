@@ -34,19 +34,19 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">Name</th>
-                                        <td>Mark</td>
+                                        <td>{{ user.username }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Email</th>
-                                        <td>mark@gmail.com</td>
+                                        <td>{{ user.email }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Phone</th>
-                                        <td>254711456789</td>
+                                        <td>{{ user.profile.phone }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Address</th>
-                                        <td>7487 The Palace</td>     
+                                        <td>{{ user.profile.address }}</td>     
                                     </tr>
                                   
                                     
@@ -54,7 +54,7 @@
                             </table> 
                         </div>
                         <div class="col-md-4">
-                            <img class="img-thumbnail" src="./media/IMG-20210418-WA0208.jpg" alt="">
+                            <img class="img-thumbnail" src="{{ user.profile.image.url }}" alt="">
                         </div>
                     </div>
                 </div>
