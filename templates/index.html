@@ -13,9 +13,9 @@
     <!--Navbar -->
     
     <!--End Navbar -->
-
+    {% if user.is_authenticated and user.is_staff and user.is_superuser %}
     <!--TopSide-->
-     {% include "topside.html" %}
+    {% include "topside.html" %}
     <!--End TopSide-->
     <!--Graphs-->
     <div class="container">
@@ -110,6 +110,11 @@
         </div>
     </div>
 
+    {% else %}
+
+    {% include "staff_index.html" %}
+
+    {% endif %}
     
 
   
