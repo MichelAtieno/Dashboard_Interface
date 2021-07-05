@@ -6,6 +6,7 @@ urlpatterns = [
     path('staff/', staff, name="staff"),
     path('product/', product, name="product"),
     path('product/delete/<int:pk>/', product_delete, name="product-delete"),
+    path('product/update/<int:pk>/', product_update, name="product-update"),
     path('order/', order, name="order"),
     
   

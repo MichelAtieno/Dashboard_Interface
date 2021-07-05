@@ -39,6 +39,22 @@ def product_delete(request, pk):
         return redirect('product')
     return render(request, "product_delete.html")
 
+def product_update(request, pk):
+    item = Product.objects.get(id=pk)
+    if request.method=="POST":
+        form = ProductForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('product')
+    else:
+        form = ProductForm(instance=item)
+    context = {
+        'form':form
+    }
+
+    return render(request, "product_update.html", context)
+
+
 @login_required()
 def order(request):
     return render(request, "order.html")
