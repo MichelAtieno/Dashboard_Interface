@@ -1,14 +1,28 @@
 from django.shortcuts import render, redirect
-from .models import Product
+from .models import Product, Order
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .forms import ProductForm
+from .forms import ProductForm, OrderForm
 from django.contrib.auth.models import User
 
 # Create your views here.
 @login_required()
 def index(request):
-    return render(request, "index.html")
+    orders = Order.objects.all()
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.staff = request.user
+            instance.save()
+            return redirect('index')
+    else:
+        form = OrderForm()
+    context = {
+        'orders': orders,
+        'form': form,
+    }
+    return render(request, "index.html", context)
 
 @login_required()
 def staff(request):
@@ -73,4 +87,8 @@ def product_update(request, pk):
 
 @login_required()
 def order(request):
-    return render(request, "order.html")
+    orders = Order.objects.all()
+    context = {
+        'orders': orders,
+    }
+    return render(request, "order.html", context)

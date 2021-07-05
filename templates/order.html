@@ -27,41 +27,26 @@
                 <table class="table bg-white">
                     <thead class="bg-info">
                         <tr class="text-white">
-                            <th scope="col">#</th>
+                            
                             <th scope="col">Product</th>
                             <th scope="col">Category</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Ordered by</th>
+                            <th scope="col">Date</th>
                         </tr>
                     </thead>
                     <tbody>
+                    {% for order in orders%}
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>
-                              Michel
-                            </td>
+                            
+                            <td>{{ order.product.name }}</td>
+                            <td>{{ order.product.category }}</td>
+                            <td>{{ order.order_quantity }}</td>
+                            <td>{{ order.staff.username }}</td>
+                            <td>{{ order.date }}</td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>
-                               Atieno
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>
-                                Otieno
-                            </td>
-                        </tr>
+                    {% endfor %}
+                        
                         
                     </tbody>
                 </table> 
