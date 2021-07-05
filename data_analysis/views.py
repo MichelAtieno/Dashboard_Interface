@@ -3,6 +3,7 @@ from .models import Product
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import ProductForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 @login_required()
@@ -11,7 +12,20 @@ def index(request):
 
 @login_required()
 def staff(request):
-    return render(request, "staff.html")
+    employees = User.objects.all()
+    context= {
+        'employees': employees
+    }
+    return render(request, "staff.html", context)
+
+@login_required()
+def staff_detail(request, pk):
+    employees = User.objects.get(id=pk)
+    context = {
+        "employees": employees
+    }
+    return render(request, 'staff_detail.html', context)
+
 
 @login_required()
 def product(request):
@@ -32,6 +46,7 @@ def product(request):
 
     return render(request, "product.html", context)
 
+@login_required()
 def product_delete(request, pk):
     item = Product.objects.get(id=pk)
     if request.method=='POST':
@@ -39,6 +54,7 @@ def product_delete(request, pk):
         return redirect('product')
     return render(request, "product_delete.html")
 
+@login_required()
 def product_update(request, pk):
     item = Product.objects.get(id=pk)
     if request.method=="POST":
